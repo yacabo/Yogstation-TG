@@ -32,7 +32,6 @@
 		if(M.client.prefs.afreeze)
 			to_chat(M, "<span class='userdanger'>You are no longer frozen.</span>")
 			M.client.prefs.afreeze = FALSE
-			M.client.show_popup_menus = TRUE
 			M.client.show_verb_panel = TRUE
 			M.notransform = FALSE
 			M.verbs += M.client.afreeze_stored_verbs
@@ -40,7 +39,6 @@
 		else
 			to_chat(M, "<span class='userdanger'>You have been frozen by an administrator.</span>")
 			M.client.prefs.afreeze = TRUE
-			M.client.show_popup_menus = FALSE
 			M.client.show_verb_panel = FALSE
 			M.notransform = TRUE
 			M.client.afreeze_stored_verbs = M.verbs.Copy()
