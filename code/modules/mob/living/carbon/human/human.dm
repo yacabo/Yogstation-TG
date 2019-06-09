@@ -27,7 +27,12 @@
 
 	. = ..()
 
+<<<<<<< HEAD
 	AddComponent(/datum/component/redirect, list(COMSIG_COMPONENT_CLEAN_ACT = CALLBACK(src, .proc/clean_blood)))
+=======
+	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_blood)
+	AddComponent(/datum/component/personal_crafting)
+>>>>>>> 45ec62931d... Finally removes the signal redirect component (#44251)
 
 /mob/living/carbon/human/proc/setup_human_dna()
 	//initialize dna. for spawned humans; overwritten by other code

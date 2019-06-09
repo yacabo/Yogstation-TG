@@ -372,7 +372,11 @@
 #include "code\datums\components\riding.dm"
 #include "code\datums\components\rot.dm"
 #include "code\datums\components\rotation.dm"
+<<<<<<< HEAD
 #include "code\datums\components\signal_redirect.dm"
+=======
+#include "code\datums\components\shrapnel.dm"
+>>>>>>> 45ec62931d... Finally removes the signal redirect component (#44251)
 #include "code\datums\components\slippery.dm"
 #include "code\datums\components\snail_crawl.dm"
 #include "code\datums\components\spawner.dm"
