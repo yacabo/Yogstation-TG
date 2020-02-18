@@ -80,3 +80,16 @@
 		to_chat(user, "<span class='notice'>..and falls into view. Whew, that was a close one.</span>")
 		user.dropItemToGround(src)
 
+/obj/item/gun/ballistic/automatic/pistol/lathe
+	name = "lathe pistol"
+	desc = "A makeshift pistol with an internal microlathe which prints bullets out of a magnetized alloy of metal and glass which are then magnetically shot through a magnetic coil. Has a short delay so the lathe can print another round."
+	icon_state = "lathe"
+	mag_type = /obj/item/ammo_box/magazine/lathe
+	fire_delay = 3
+	bolt_type = BOLT_TYPE_LOCKING
+	fire_sound_volume = 80
+	casing_ejector = TRUE
+	fire_sound = "yogstation/sound/weapons/coilgun_fire.ogg"
+
+/obj/item/gun/ballistic/automatic/pistol/lathe/no_mag
+	spawnwithmagazine = FALSE
