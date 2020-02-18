@@ -211,8 +211,6 @@
 	"Service" = /obj/item/robot_module/butler)
 	if(!CONFIG_GET(flag/disable_peaceborg))
 		modulelist["Peacekeeper"] = /obj/item/robot_module/peacekeeper
-	if(!CONFIG_GET(flag/disable_secborg))
-		modulelist["Security"] = /obj/item/robot_module/security
 
 	var/list/moduleicons = list() //yogs start
 	for(var/option in modulelist)
@@ -906,6 +904,12 @@
 					audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
 					to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
 					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, 1, 1)
+
+/mob/living/silicon/robot/movement_delay()
+	. = ..()
+	var/hd = maxHealth - health
+	if(hd > 50)
+		. += hd/100
 
 /mob/living/silicon/robot/update_sight()
 	if(!client)

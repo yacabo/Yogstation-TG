@@ -16,7 +16,7 @@
 	desc = "God wills it!"
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
+	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/box/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 
 /obj/item/choice_beacon/holy
 	name = "armaments beacon"
@@ -70,7 +70,7 @@
 	icon_state = "studentuni"
 	item_state = "studentuni"
 	body_parts_covered = ARMS|CHEST
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
+	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/box/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 
 /obj/item/clothing/head/helmet/chaplain/cage
 	name = "cage"
@@ -138,7 +138,7 @@
 	icon_state = "chaplain_hoodie"
 	item_state = "chaplain_hoodie"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
+	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/box/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood
 
 /obj/item/clothing/head/hooded/chaplain_hood
@@ -438,7 +438,9 @@
 		S.ckey = C.ckey
 		S.fully_replace_character_name(null, "The spirit of [name]")
 		S.status_flags |= GODMODE
-		S.language_holder = user.language_holder.copy(S)
+		S.copy_languages(user, LANGUAGE_MASTER)	//Make sure the sword can understand and communicate with the user.
+		S.update_atom_languages()
+		grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue
 		var/input = stripped_input(S,"What are you named?", ,"", MAX_NAME_LEN)
 
 		if(src && input)
