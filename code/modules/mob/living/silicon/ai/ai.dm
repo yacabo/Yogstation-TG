@@ -46,6 +46,7 @@
 	var/mob/living/simple_animal/bot/Bot
 	var/tracking = FALSE //this is 1 if the AI is currently tracking somebody, but the track has not yet been completed.
 	var/datum/effect_system/spark_spread/spark_system//So they can initialize sparks whenever/N
+	var/voice_tone = null //What color the speech bubbles are
 
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
@@ -135,6 +136,7 @@
 		apply_pref_name("ai",client)
 
 	set_core_display_icon()
+	pick_voice_tone()
 
 	holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"default"))
 
@@ -209,6 +211,14 @@
 		var/preferred_icon = input ? input : C.prefs.preferred_ai_core_display
 		icon = initial(icon) //yogs
 		icon_state = resolve_ai_icon(preferred_icon)
+
+/mob/living/silicon/ai/proc/pick_voice_tone(client/C)
+	if(client && !C)
+		C = client
+	if(C.prefs.voice_tone)
+		voice_tone = C.prefs.voice_tone
+	else
+		voice_tone = null
 
 /mob/living/silicon/ai/verb/pick_icon()
 	set category = "AI Commands"
@@ -876,8 +886,8 @@
 	var/rendered = "<i><span class='game say'>[start]<span class='name'>[hrefpart][namepart] ([jobpart])</a> </span><span class='message'>[treated_message]</span></span></i>"
 
 	if (client?.prefs.chat_on_map && (client.prefs.see_chat_non_mob || ismob(speaker)))
-		create_chat_message(speaker, message_language, raw_message, spans, message_mode)
-	
+		create_chat_message(speaker, message_language, raw_message, spans, message_mode, voice_tone)
+
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/fully_replace_character_name(oldname,newname)

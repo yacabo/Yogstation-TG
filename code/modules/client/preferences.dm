@@ -63,6 +63,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/facial_hair_color = "000"		//Facial hair color
 	var/skin_tone = "caucasian1"		//Skin color
 	var/eye_color = "000"				//Eye color
+	var/voice_tone = "000"				//Voice tone
 	var/datum/species/pref_species = new /datum/species/human()	//Mutant race
 	var/list/features = list("mcolor" = "FFF", "ethcolor" = "9c3030", "tail_lizard" = "Smooth", "tail_human" = "None", "snout" = "Round", "horns" = "None", "ears" = "None", "wings" = "None", "frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Normal Legs", "moth_wings" = "Plain")
 	var/list/genders = list(MALE, FEMALE, PLURAL)
@@ -229,9 +230,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<a href='?_src_=prefs;preference=sec_dept;task=input'><b>Preferred Security Department:</b> [prefered_security_department]</a><BR>"
 			dat += "<a href='?_src_=prefs;preference=eng_dept;task=input'><b>Preferred Engineering Department:</b> [prefered_engineering_department]</a><BR>"
 
-			
+
 			dat += "<b>Language:</b><BR>"
 			dat += "<a href='?_src_=prefs;preference=accent;task=input'><b>Accent:</b> [accent ? accent : "None"]</a><BR></td>"
+			dat += "<a href='?_src_=prefs;preference=voice_tone;task=input'><b>Voice Bubble Text Color:</b> </a><BR> "
 
 			dat += "</tr></table>"
 
@@ -1327,6 +1329,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_eyes)
 						eye_color = sanitize_hexcolor(new_eyes)
 
+				if("voice_tone")
+					to_chat(world, "Beta One")
+					var/new_voice_tone = input(user, "Choose your character's chat bubble color:", "Character Preference","#"+voice_tone) as color|null
+					to_chat(world, "Beta Two")
+					if(new_voice_tone)
+						to_chat(world, "Beta Three mark One")
+						voice_tone = sanitize_hexcolor(new_voice_tone)
+						to_chat(world, "Beta Three mark Two")
+
 				if("species")
 
 					var/result = input(user, "Select a species", "Species Selection") as null|anything in GLOB.roundstart_races
@@ -1710,6 +1721,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		organ_eyes.old_eye_color = eye_color
 	character.hair_color = hair_color
 	character.facial_hair_color = facial_hair_color
+	character.voice_tone = voice_tone
 
 	character.skin_tone = skin_tone
 	character.hair_style = hair_style

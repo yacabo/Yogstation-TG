@@ -24,6 +24,8 @@
 	var/scheduled_destruction
 	/// Contains the approximate amount of lines for height decay
 	var/approx_lines
+	/// The player selected color of the chat message, null if they player did not pick a color
+	var/voice_tone
 
 /**
   * Constructs a chat message overlay
@@ -65,7 +67,7 @@
   * * extra_classes - Extra classes to apply to the span that holds the text
   * * lifespan - The lifespan of the message in deciseconds
   */
-/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, list/extra_classes, lifespan)
+/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, list/extra_classes, lifespan, voice_tone)
 	// Register client who owns this message
 	owned_by = owner.client
 	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, .proc/on_ownedby_deleting)
@@ -78,11 +80,25 @@
 	if (length_char(text) > maxlen)
 		text = copytext_char(text, 1, maxlen + 1) + "..." // BYOND index moment
 
+	to_chat(world, "Alpha One")
+
 	// Calculate target color if not already present
-	if (!target.chat_color || target.chat_color_name != target.name)
-		target.chat_color = colorize_string(target.name)
-		target.chat_color_darkened = colorize_string(target.name, 0.85, 0.85)
-		target.chat_color_name = target.name
+	if (!owner.chat_color || target.chat_color_name != target.name)
+		to_chat(world, "Alpha Two")
+		//Checks to see if the user picked their voice color
+		if(voice_tone != "000")
+			to_chat(world, "Alpha Three mark One")
+			target.chat_color = voice_tone
+			target.chat_color_darkened = colorize_string(target.name, 0.85, 0.85)
+			target.chat_color_name = target.name
+			to_chat(world, "Alpha Three mark Two")
+		//Makes up a color if the player did not already pick one
+		else
+			to_chat(world, "Alpha Four mark One")
+			target.chat_color = colorize_string(target.name)
+			target.chat_color_darkened = colorize_string(target.name, 0.85, 0.85)
+			target.chat_color_name = target.name
+			to_chat(world, "Alpha Four mark Two")
 
 	// Get rid of any URL schemes that might cause BYOND to automatically wrap something in an anchor tag
 	var/static/regex/url_scheme = new(@"[A-Za-z][A-Za-z0-9+-\.]*:\/\/", "g")
