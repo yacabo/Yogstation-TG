@@ -134,9 +134,14 @@
 	if(incorrect_words.len)
 		to_chat(src, "<span class='notice'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>")
 		return
-
-	announcing_vox = world.time + VOX_DELAY
-
+	
+	//Victor (male) and Verity (female) need a delay
+	if(voxType == "Verity (female)" || "Victor (male)")
+		announcing_vox = world.time + VOX_DELAY
+	//Oscar (military) has a delay built into the audio files
+	else
+		announcing_vox = world.time
+	
 	log_game("[key_name(src)] made a vocal announcement with the following message: [message].")
 
 	for(var/word in words)
